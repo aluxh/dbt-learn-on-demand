@@ -7,10 +7,10 @@ with payments as (
         status,
         
         -- amount is stored in cents, so convert to dollars
-        amount/100 as amount,
+        {{ cents_to_dollars('amount') }},
         created as created_at
     from
-        raw.stripe.payment
+        {{ source('stripe', 'payment') }}
 
 )
 
